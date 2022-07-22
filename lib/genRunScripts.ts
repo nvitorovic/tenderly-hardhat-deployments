@@ -104,8 +104,8 @@ const scripts = runScripts.reduce(
 
 pack.scripts = {
   ...scripts,
-  "gen:scripts": "ts-node genrunScripts.ts",
-  all: "ts-node runall.ts",
+  "gen:scripts": "ts-node lib/genRunScripts.ts",
+  all: "ts-node lib/runall.ts",
 };
 
-writeFileSync("package.json", JSON.stringify(pack, null, 2));
+writeFileSync("package.json", JSON.stringify(pack, null, 2) + "\n");

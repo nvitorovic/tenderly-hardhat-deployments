@@ -19,8 +19,8 @@
     "fork:maths:automatic": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/maths/automatic.ts --network tenderly",
     "fork:maths:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-simple.ts --network tenderly",
     "fork:maths:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-advanced-fork.ts --network tenderly",
-    "gen:scripts": "ts-node genrunScripts.ts",
-    "all": "ts-node runall.ts"
+    "gen:scripts": "ts-node lib/genRunScripts.ts",
+    "all": "ts-node lib/runall.ts"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.6.4",
