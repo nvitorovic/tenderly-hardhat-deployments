@@ -31,8 +31,7 @@ export async function main() {
           }).toString(),
           sourcePath: "contracts/whatever/Greeter.sol",
           networks: {
-            // important: key is the Fork ID (UUID like string)
-            // TODO: can we make it prettier?
+            // important: key is the Fork ID (UUID-like string)
             [FORK_ID]: {
               address: greeterAddress,
               links: {},
@@ -53,7 +52,6 @@ export async function main() {
         },
       ],
     },
-    // TODO: make these optional, use the config coming hardhat config
     process.env.TENDERLY_PROJECT || "",
     process.env.TENDERLY_USERNAME || "",
     FORK_ID

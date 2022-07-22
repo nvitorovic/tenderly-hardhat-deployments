@@ -30,7 +30,7 @@
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
     "@nomiclabs/hardhat-ethers": "^2.1.0",
     "@nomiclabs/hardhat-etherscan": "^3.1.0",
-    "@tenderly/hardhat-tenderly": "^1.1.4",
+    "@tenderly/hardhat-tenderly": "/Users/nenad/Projects/Tenderly/hardhat-tenderly/dist",
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.1",

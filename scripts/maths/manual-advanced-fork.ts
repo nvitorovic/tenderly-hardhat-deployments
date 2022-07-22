@@ -16,7 +16,6 @@ export async function main() {
   // 👩‍🏫 Mathematitian (uses maths)
   const mathematitianAddress = await deployMathematitian(mathsAddress);
 
-  // TODO: rename/alias TenderlyForkContractUploadRequest with something more sensible
   await tenderly.verifyForkAPI(
     {
       root: "",
@@ -34,9 +33,9 @@ export async function main() {
           },
           networks: {
             // important: key is the Fork ID (UUID like string)
-            // TODO: can we make it prettier?
             [FORK_ID]: {
               address: mathematitianAddress,
+              // Link the dependency to the deployed maths contract
               links: {
                 Maths: mathsAddress,
               },
@@ -54,7 +53,6 @@ export async function main() {
         },
       ],
     },
-    // TODO: make these optional, use the config coming hardhat config
     process.env.TENDERLY_PROJECT || "",
     process.env.TENDERLY_USERNAME || "",
     FORK_ID
