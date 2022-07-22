@@ -1,93 +1,106 @@
-# Sample Hardhat Project
+# Hardhat + Tenderly Contract Verification
 
-## Automatic
+This repo demonstrates deployment and verification of Smart Contracts in Tenderly platform, using:
 
-```bash
-export TENDERLY_AUTOMATIC_VERIFICATION=true; \
-npx hardhat run scripts/deploy-automatic.ts --network ropsten; \
-unset TENDERLY_AUTOMATIC_VERIFICATION
-```
+- **Tenderly Hardhat plugin** to perform verification using Ethers in several ways (automatic and manual). There are 18 different possibilities you can play around with.
+- **API access** to perform verification using the API (TBD)
 
-Output:
+<!-- Add URL to the article -->
 
-```bash
-Using automatic verification?  true
-Using automatic verification?  true
-undefined
-Smart Contracts successfully verified
-  Contract 0xdf5f077b6940b34fd181f68808269702562ba7d0 verified. You can view the contract at https://dashboard.tenderly.co/contract/ropsten/0xdf5f077b6940b34fd181f68808269702562ba7d0
-Greeter deployed to: 0xdF5F077B6940B34fD181f68808269702562Ba7D0
-```
+# Environment setup
 
-- hardhat.config called twice
-- has `undefined` printed out
-- line break before `You can verify...` will make it prettier
+This example requires some environment variables:
 
-## Manual (simple)
+- The **provider access** and **tenderly access** parameters should be placed in an .env file.
+- Run configuration should be set on per-run basis. This allows us to run the same deployment script in public and private mode or on a fork, without changing any code. These values are used only in hardhat.config.ts. See [Building and verifying](#biuilding-and-verifying-greeter-and-environment-variables) section for more information.
+
+Run the following script to to get an `.env` file initialized with placeholders, necessary for running the examples:
 
 ```bash
-export TENDERLY_AUTOMATIC_VERIFICATION=false; \
-npx hardhat run scripts/deploy-manual-simple.ts --network ropsten; \
-unset TENDERLY_AUTOMATIC_VERIFICATION;
+cat .tpl.env
+cp .tpl.env .env
 ```
 
-output:
+To get going, run
 
 ```
-Using automatic verification?  false false
-Using automatic verification?  false false
-Manual Greeter deployed to: 0x3eF4dC2BE553B9ADD990dE17618133dF56a310Ce
-Error in hardhat-tenderly: No compiler configuration found for the contracts
-[
-  {
-    address: '0x3eF4dC2BE553B9ADD990dE17618133dF56a310Ce',
-    name: 'Simple Manual Greeter'
-  }
-]
+npm install
 ```
 
-- script called twice
-- unclear error
-
-## Manual (advanced)
+Try running automatic verification:
 
 ```bash
-export TENDERLY_AUTOMATIC_VERIFICATION=false; \
-npx hardhat run scripts/deploy-manual-complex.ts --network ropsten; \
-unset TENDERLY_AUTOMATIC_VERIFICATION
+TENDERLY_AUTOMATIC_VERIFICATION=true \
+hardhat run scripts/greeter/automatic.ts --network ropsten
 ```
 
-Output:
+# The examples
+
+There are two example contracts (`Greeter.sol` and `Mathematitian.sol`). Their build scripts are located in:
+
+- `scripts/greeter/`, deploying the classical Greeter.sol contract.
+- `scripts/maths`, deploying `Mathematitian.sol` and `Maths.sol` - a library used by the contract.
+
+From these examples, you can learn:
+
+- How to verify a Smart Contract referencing a non-deployed library: Greeter uses `hardhat/console.log`.
+- How to verify a Smart Contract referencing an on-chain deployed library: Mathematitian uses deployed `Maths.sol` library.
+
+## Biuilding and Verifying Greeter and environment variables
+
+The `/scripts/greeter` contains 4 deployment scripts that illustrate the 3 methods of verification (automatic, manual simple, manual advanced) and verification of a contract deployed on a Tenderly Fork. The `scripts/maths` example has the same structure.
+
+| Verification method    | Script                             |
+| ---------------------- | ---------------------------------- |
+| Automatic verification | `scripts/greeter/automatic.ts`     |
+| Manual simple          | `scripts/greeter/manual-simple.ts` |
+| Manual advanced        | `scripts/greeter/manual-simple.ts` |
+| Fork                   | `scripts/greeter/fork.ts`          |
+
+For example, to run the automatic verification example, you have to run it with [`TENDERLY_AUTOMATIC_VERIFICATION`](#modes-of-verification-public-private-and-fork) variable:
+
 ```bash
-Using automatic verification?  false false
-Using automatic verification?  false false
-Manual Greeter deployed to: 0xFC80b31786cdA6B59A1d2241143308f96bDB10fc
-Unexpected error occurred. 
-  Error reason 422 Unprocessable Entity. 
-  Error context: Error during source code compiling
-Error in hardhat-tenderly: Verification failed. There was an error during the API request, please contact support with the above error.
+TENDERLY_AUTOMATIC_VERIFICATION=true \
+hardhat run scripts/greeter/automatic.ts --network ropsten
 ```
 
-# Fork
+And to run the manual simple with private verification, you'd paste this:
 
-```bash
-export TENDERLY_AUTOMATIC_VERIFICATION=false; \
-npx hardhat run scripts/deploy-fork.ts --network tenderly; \
-unset TENDERLY_AUTOMATIC_VERIFICATION
-    
+```
+TENDERLY_PRIVATE_VERIFICATION=true \
+TENDERLY_AUTOMATIC_VERIFICATION=false \
+hardhat run scripts/greeter/manual-simple.ts --network ropsten
 ```
 
-Output
-```bash
-Using automatic verification?  false false
-Using automatic verification?  false false
-Forked Greeter deployed to fork: 0xb3a0eE26ddc5fD960d6Af825D7665EF688b78b4f
-Unexpected error occurred. 
-  Error reason 400 Bad Request. 
-  Error context: {"error":{"errors":[{"source_location":{"file":"contracts/Greeter.sol","start":62,"end":91},"error_type":"ParserError","component":"general","message":"Source \"hardhat/console.sol\" not found: File not found.","formatted_message":""}],"message":"Error during source code compiling","slug":"compile_error"}}
-Error in hardhat-tenderly: Verification failed. There was an error during the API request, please contact support with the above error.
-```
+Don't worry, we generated [NPM run scripts](#npm-run-scripts) to speed things up.
 
-# Questions now+future:
-- How to use `links` to map out referenced libraries? (what's the key, what's the value). Example would be good.
-- How to handle solidity imports properly?
+### Modes of verification: `public`, `private`, and `fork`
+
+- To easily switch between private and public verification use `TENDERLY_PRIVATE_VERIFICATION`.
+- Default: `false`, contracts are verified publically.
+- To run a private verification set `TENDERLY_PRIVATE_VERIFICATION=true`. Any other value is considered not true.
+
+### Tenderly Plugin verification methods: automatic and manual
+
+- Tenderly Hardhat plugin runs with automatic verifications **enabled by default** unless explicitly configured otherwise. See hardhat config line 31.
+- To control if you're automatic or manual verification, use `TENDERLY_AUTOMATIC_VERIFICATION`.
+- Default: `false`
+- To run an automatic verification set `TENDERLY_AUTOMATIC_VERIFICATION=true`
+
+## NPM run scripts
+
+The pre-populated (generated) scripts in package.json are there to help you quickly run a particular build (out of 18 possibilities), so you don't need to specify environment variables and the tartet deployment script every time you're trying stuff out.
+
+You can choose
+
+| category  | Meaning                                | options                                         |
+| --------- | -------------------------------------- | ----------------------------------------------- |
+| `example` | Smart contract to verify               | `greeter`, `maths`                              |
+| `mode`    | In one of 3 modes of verification      | `public`, `private`, `fork`                     |
+| `method`  | Using one of 3 methods of verification | `automatic`, `manual-simple`, `manual-advanced` |
+
+To run `private` verification of the `Greeter` using `manual-simple` method, you need to run the following:
+
+```
+npm run private:greeter:manual-simple
+```

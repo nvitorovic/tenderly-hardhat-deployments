@@ -1,3 +1,4 @@
+// File: scripts/maths/maths-deployment-ethers.ts
 import { ethers } from "hardhat";
 
 export async function deployMaths() {
@@ -6,7 +7,7 @@ export async function deployMaths() {
   const maths = await Maths.deploy();
   await maths.deployed();
 
-  console.log("📐[ethers] Maths deployed to ", maths.address);
+  console.log("📐[ethers] {Maths} deployed to", maths.address);
 
   return maths.address;
 }
@@ -17,11 +18,11 @@ export async function deployMathematitian(mathsAddress: string) {
       Maths: mathsAddress,
     },
   });
-  console.log("👩‍🏫[ethers] >Deploying Mathematitian smart contract");
+  console.log("👩‍🏫[ethers] Deploying Mathematitian smart contract");
   const mathematitian = await Mathematitian.deploy();
   await mathematitian.deployed();
   const mathematitianAddress = mathematitian.address;
 
-  console.log("👩‍🏫[ethers] >Mathematitian deployed to", mathematitian.address);
+  console.log("👩‍🏫[ethers] {Mathematitian} deployed to", mathematitian.address);
   return mathematitian.address;
 }

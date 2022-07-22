@@ -1,21 +1,16 @@
-import { ethers, tenderly } from "hardhat";
+// File: scripts/maths/automatic.ts
+import { tenderly } from "hardhat";
 import { deployMathematitian, deployMaths } from "./maths-deployment-ethers";
 
 async function main() {
-  // 📐 Mathematitian (uses maths)
+  // 📐 Maths (uses maths)
+  console.log("📐 [tenderly] Deploying & autoverifying Maths in Tenderly");
   const mathsAddress = await deployMaths();
-
-  console.log("📐[ethers] Verifying Maths in Tenderly");
-
-  tenderly.verify({
-    name: "Maths",
-    address: mathsAddress,
-  });
 
   // 👩‍🏫 Mathematitian (uses maths)
   const mathematitianAddress = await deployMathematitian(mathsAddress);
 
-  console.log("👩‍🏫[tenderly] Verifying Mathematitian in Tenderly");
+  console.log("👩‍🏫[tenderly] Deploying & autoverifying in Tenderly");
 
   tenderly.verify({
     name: "Mathematitian",

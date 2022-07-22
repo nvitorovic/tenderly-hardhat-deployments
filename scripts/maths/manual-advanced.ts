@@ -1,18 +1,23 @@
+// File: scripts/maths/manual-advanced.ts
 import { readFileSync } from "fs";
-import { ethers, tenderly } from "hardhat";
-import { task } from "hardhat/config";
+import hre, { tenderly } from "hardhat";
 import { deployMathematitian, deployMaths } from "./maths-deployment-ethers";
 
 export async function main() {
+  // deploy stuff but later pretend it's been deployed ages ago on Ropsten.
   // 📐 Maths
   const mathsAddress = await deployMaths();
-  tenderly.verify({
+  await tenderly.verify({
     name: "Maths",
     address: mathsAddress,
   });
 
   // 👩‍🏫 Mathematitian (uses maths)
   const mathematitianAddress = await deployMathematitian(mathsAddress);
+
+  // pretend it's been deployed ages ago on Ropsten in a diffrent deployment.
+  // Hence we know NETWORK_ID=3 and the address of the contract (mathematitianAddress)
+  const NETWORK_ID = "3";
 
   await tenderly.verifyAPI({
     config: {
@@ -28,7 +33,8 @@ export async function main() {
           version: "0.8.9",
         },
         networks: {
-          3: {
+          // The key is the network ID (1 for Mainnet, 3 for Ropsten)
+          [NETWORK_ID]: {
             address: mathematitianAddress,
             links: {
               Maths: mathsAddress,
@@ -49,8 +55,6 @@ export async function main() {
   });
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

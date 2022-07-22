@@ -1,3 +1,4 @@
+// File: scripts/greeter/manual-simple-public.ts
 import { ethers, tenderly } from "hardhat";
 
 async function main() {
@@ -6,16 +7,14 @@ async function main() {
 
   await greeter.deployed();
   const address = greeter.address;
+  console.log("Manual Advanced: {Greeter} deployed to:", address);
 
   tenderly.verify({
     address,
     name: "Greeter",
   });
-  console.log("Manual Complex Greeter deployed to:", address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

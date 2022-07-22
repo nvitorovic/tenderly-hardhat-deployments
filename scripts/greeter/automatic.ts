@@ -1,3 +1,4 @@
+// File: scripts/greeter/automatic.ts
 import { ethers } from "hardhat";
 
 async function main() {
@@ -6,11 +7,9 @@ async function main() {
 
   await greeter.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("{Greeter} deployed to", greeter.address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

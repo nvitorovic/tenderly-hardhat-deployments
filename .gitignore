@@ -9,3 +9,8 @@ typechain-types
 cache
 artifacts
 
+# Generated stuff
+all.json
+all.txt
+exec.json
+runall.ts

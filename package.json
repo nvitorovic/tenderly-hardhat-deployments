@@ -1,11 +1,26 @@
 {
   "name": "hardhat-project",
   "scripts": {
-    "greeter:automatic": "TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/deploy-automatic.ts --network ropsten",
-    "greeter:simple": "hardhat run scripts/deploy-manual-simple.ts --network ropsten",
-    "greeter:complex": "hardhat run scripts/deploy-manual-complex.ts --network ropsten",
-    "libraries:simple": "hardhat run scripts/deploy-with-libraries-simple.ts --network ropsten",
-    "libraries:complex": "hardhat run scripts/deploy-with-libraries-complex.ts --network ropsten"
+    "public:greeter:automatic": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/greeter/automatic.ts --network ropsten",
+    "public:greeter:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-simple.ts --network ropsten",
+    "public:greeter:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-advanced.ts --network ropsten",
+    "public:maths:automatic": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/maths/automatic.ts --network ropsten",
+    "public:maths:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-simple.ts --network ropsten",
+    "public:maths:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-advanced.ts --network ropsten",
+    "private:greeter:automatic": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/greeter/automatic.ts --network ropsten",
+    "private:greeter:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-simple.ts --network ropsten",
+    "private:greeter:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-advanced.ts --network ropsten",
+    "private:maths:automatic": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/maths/automatic.ts --network ropsten",
+    "private:maths:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-simple.ts --network ropsten",
+    "private:maths:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=true TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-advanced.ts --network ropsten",
+    "fork:greeter:automatic": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/greeter/automatic.ts --network tenderly",
+    "fork:greeter:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-simple.ts --network tenderly",
+    "fork:greeter:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/greeter/manual-advanced-fork.ts --network tenderly",
+    "fork:maths:automatic": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=true hardhat run scripts/maths/automatic.ts --network tenderly",
+    "fork:maths:manual-simple": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-simple.ts --network tenderly",
+    "fork:maths:manual-advanced": "TENDERLY_PRIVATE_VERIFICATION=false TENDERLY_AUTOMATIC_VERIFICATION=false hardhat run scripts/maths/manual-advanced-fork.ts --network tenderly",
+    "gen:scripts": "ts-node genrunScripts.ts",
+    "all": "ts-node runall.ts"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.6.4",
