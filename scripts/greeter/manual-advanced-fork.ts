@@ -26,9 +26,7 @@ export async function main() {
       contracts: [
         {
           contractName: "Greeter",
-          source: readFileSync("contracts/Greeter.sol", {
-            encoding: "utf-8",
-          }).toString(),
+          source: readFileSync("contracts/Greeter.sol", "utf-8").toString(),
           sourcePath: "contracts/whatever/Greeter.sol",
           networks: {
             // important: key is the Fork ID (UUID-like string)
@@ -40,9 +38,10 @@ export async function main() {
         },
         {
           contractName: "console",
-          source: readFileSync("node_modules/hardhat/console.sol", {
-            encoding: "utf-8",
-          }).toString(),
+          source: readFileSync(
+            "node_modules/hardhat/console.sol",
+            "utf-8"
+          ).toString(),
           sourcePath: "hardhat/console.sol",
           networks: {},
           compiler: {

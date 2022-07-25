@@ -44,11 +44,11 @@ const config: HardhatUserConfig = {
       url: `https://rpc.tenderly.co/fork/${TENDERLY_FORK_ID}`,
     },
   },
-  // tenderly: {
-  //   project: process.env.TENDERLY_PROJECT || "",
-  //   username: process.env.TENDERLY_USERNAME || "",
-  //   privateVerification: process.env.PRIVATE_VERIFICATION === "true",
-  // },
+  tenderly: {
+    project: process.env.TENDERLY_PROJECT || "",
+    username: process.env.TENDERLY_USERNAME || "",
+    privateVerification: process.env.PRIVATE_VERIFICATION === "true",
+  },
 };
 
 export default config;

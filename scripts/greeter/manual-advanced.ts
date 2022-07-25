@@ -11,7 +11,7 @@ export async function main() {
   const greeterAddress = greeter.address;
   console.log("Manual Simple: {Greeter} deployed to", greeterAddress);
 
-  // pretend it's been deployed ages ago on Ropsten in a diffrent deployment.
+  // pretend it's been deployed ages ago on Ropsten in a different deployment.
   // Hence we know NETWORK_ID=3 and the address of the contract (greeterAddress)
   const NETWORK_ID = 3;
 
@@ -25,9 +25,7 @@ export async function main() {
     contracts: [
       {
         contractName: "Greeter",
-        source: readFileSync("contracts/Greeter.sol", {
-          encoding: "utf-8",
-        }).toString(),
+        source: readFileSync("contracts/Greeter.sol", "utf-8").toString(),
         sourcePath: "contracts/whatever/Greeter.sol",
         networks: {
           // The key is the network ID (1 for Mainnet, 3 for Ropsten and so on)
@@ -39,9 +37,10 @@ export async function main() {
       },
       {
         contractName: "console",
-        source: readFileSync("node_modules/hardhat/console.sol", {
-          encoding: "utf-8",
-        }).toString(),
+        source: readFileSync(
+          "node_modules/hardhat/console.sol",
+          "utf-8"
+        ).toString(),
         sourcePath: "hardhat/console.sol",
         networks: {},
         compiler: {

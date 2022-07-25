@@ -6,7 +6,7 @@ async function main() {
   const Greeter = await ethers.getContractFactory("Greeter");
 
   const greeter = await Greeter.deploy("Hello, Forked Hardhat!");
-  const source = readFileSync("contracts/Greeter.sol").toString();
+  const source = readFileSync("contracts/Greeter.sol", "utf-8").toString();
 
   await greeter.deployed();
   console.log("Forked {Greeter} deployed to", greeter.address);

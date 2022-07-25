@@ -15,7 +15,7 @@ export async function main() {
   // 👩‍🏫 Mathematitian (uses maths)
   const mathematitianAddress = await deployMathematitian(mathsAddress);
 
-  // pretend it's been deployed ages ago on Ropsten in a diffrent deployment.
+  // pretend it's been deployed ages ago on Ropsten in a different deployment.
   // Hence we know NETWORK_ID=3 and the address of the contract (mathematitianAddress)
   const NETWORK_ID = "3";
 
@@ -27,7 +27,7 @@ export async function main() {
     contracts: [
       {
         contractName: "Mathematitian",
-        source: readFileSync("contracts/Mathematitian.sol").toString(),
+        source: readFileSync("contracts/Mathematitian.sol", "utf-8").toString(),
         sourcePath: "Mathematitian.sol",
         compiler: {
           version: "0.8.9",
@@ -44,7 +44,10 @@ export async function main() {
       },
       {
         contractName: "Maths",
-        source: readFileSync("contracts/libraries/Maths.sol").toString(),
+        source: readFileSync(
+          "contracts/libraries/Maths.sol",
+          "utf-8"
+        ).toString(),
         sourcePath: "libraries/Maths.sol",
         compiler: {
           version: "0.8.9",
