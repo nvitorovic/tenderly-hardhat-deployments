@@ -14,5 +14,6 @@ artifacts
 all.json
 all.txt
 exec.json
-runall.ts
+.idea
+deployments
 
