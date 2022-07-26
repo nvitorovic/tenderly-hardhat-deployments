@@ -1,4 +1,3 @@
-.DS_Store
 node_modules
 .env
 coverage
@@ -10,10 +9,11 @@ typechain-types
 cache
 artifacts
 
-# Generated stuff
+# Generated stuff and LIB
+.DS_Store
 all.json
 all.txt
 exec.json
 .idea
 deployments
-
+ejected
