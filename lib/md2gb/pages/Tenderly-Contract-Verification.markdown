@@ -4,11 +4,9 @@ The process of verification in Tenderly takes the deployed bytecode and connects
 
 There are three methods to verify a contract in Tenderly:
 
-* Using the Tenderly Dashboard (LINK)[https://docs.tenderly.co/monitoring/verifying-a-smart-contract]
+* [Using the Tenderly Dashboard](https://docs.tenderly.co/monitoring/verifying-a-smart-contract)
 
 * Using the Tenderly plugin within a Hardhat project
-
-* Using Tenderly contract (verification API directly LINK)[] if you’re not using Hardhat 
 
 # Modes of verification 
 

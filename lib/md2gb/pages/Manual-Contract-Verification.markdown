@@ -14,14 +14,15 @@ You can choose between two ways to manually verify a contract, including:
 
 - **Advanced**, where you need to specify arguments manually with a high level of detail, which provides more freedom and flexibility throughout the verification process.
 
-{.callout}
+{%callout}
 
 ⚠️ **Turn off automatic verification**: Before deploying a contract using Hardhat, turn off the automatic contract verification in your `hardhat.config.ts` file by calling 
 
-```tsx tdly.setup({ automaticVerifications: false });
+```tsx 
+tdly.setup({ automaticVerifications: false });
 ```
 
-{--callout}
+{%/callout}
 
 # Simple manual verification
 
@@ -40,31 +41,31 @@ After deploying the contract, you can verify it using the Tenderly Hardhat plugi
 
 To successfully verify the contract using the `.verify()` method, you need to pass a configuration object. The object consists of 2 fields:
 
-* the exact **name** of the Smart Contract as it is in `Greeter.sol` and 
+* the exact **name** of the Smart Contract as it is in the source file and 
 
 * the **address** of your deployed Smart Contract. If you want to verify multiple contracts, you need to repeat this for each one.
 
+{%callout}
+
+The most common reason why verification fails is mismatch between the given `name` field and the actual name of the Smart Contract.
+
+{%/callout}
+
 ```jsx
-// File: scripts/greeter/manual-simple-public.ts
+// File: scripts/greeter/manual-simple.ts
 import { ethers, tenderly } from "hardhat";
 
 async function main() {
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Manual Hardhat!");
-
-  await greeter.deployed();
-  const address = greeter.address;
-  console.log("Manual Advanced: {Greeter} deployed to:", address);
-
+  // --snip--
   tenderly.verify({
-    address,
-    name: "Greeter",
+   address,
+   name: "Greeter",
   });
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+ console.error(error);
+ process.exitCode = 1;
 });
 ```
 
@@ -153,24 +154,19 @@ As seen in the example above, the two core aspects of using the `verifyApi` are:
 
 The `config` property defines the necessary information about the compiler and optimizations applied during the compilation of a Smart Contract (Lines 19-24). 
 
-{.callout}
+{%callout}
 
 Verification can fail if the compiler config you specified differs significantly from the one actually used to compile the Smart Contract deployed on-chain.
 
-{--callout}
+{%/callout}
 
 Here’s an overview of relevant configuration parameters:
 
 | Paramater | Type | Description |
-
 | --- | --- | --- |
-
 | compiler_version | string | Specify the exact version of the compiler used to compile a Smart Contract |
-
 | evm_version | string | Specify the EVM version from a closed set of options. Here are the options you can choose from: homestead, tangerineWhistle, spuriousDragon, byzantium, constantinople, petersburg, istanbul, berlin, london. The default option is **default** |
-
 | optimization_count | int | The number of optimization steps. Ignored if optimizations_used is false. |
-
 | optimization_used | boolean | Whether or not optimization was used while compiling the contract |
 
 ## The list of *contracts* 
@@ -180,21 +176,13 @@ The `contracts` property of the configuration is used to specify all the contrac
 Here’s a breakdown of the `contracts` property of the advanced verification configuration:
 
 | Paramater | Type | Description |
-
 | --- | --- | --- |
-
 | contractName | string | The name of the contract, as it will appear in the Tenderly dashboard. It doesn’t have to correspond to the actual name of the Smart Contract. |
-
 | source | string | The source code of your Smart Contract(s). |
-
 | sourcePath | string | **For Smart Contracts**, this is a relative path to the Smart Contract, relative to the `contracts` directory.<br/> **For libraries**, this is a relative path and it should match the one in the `import` statement within the Contract that’s using it. |
-
 | networks | Object | The set of networks where the contract is deployed. For Libraries that aren’t deployed, pass an empty object `{}`. |
-
 | networks.key | int | The ID of a network where contract is deployed (e.g., Mainnet is 1, Rinkeby is 4)  |
-
 | networks.key.addres | string | The address of a contract deployed on a specific network |
-
 | networks.key.links | Object | A link is a way to specify libraries used by the contract. It’s also referred to as linkReference or linkRef.
 
 Take a look at the [Solidity library overview for more information]. (https://docs.soliditylang.org/en/v0.8.15/contracts.html?highlight=libraries
@@ -213,4 +201,6 @@ Here are a few guidelines for specifying libraries:
 
 - **Networks**: Pass an empty object (`{}`) for  `networks` because `console.sol` is deployed alongside the Greeter. This means that the contract isn’t deployed separately, it’s just made available for the Tenderly Verification process. In case the library you’re using is deployed on the network, pass the actual address.
 
-❗️When verifying a contract that uses several libraries, each library must be explicitly specified, including the source code. Include the address of the library if it’s pre-deployed on the network or pass an empty network configuration if the library is linked to your contract at compile time.
+When verifying a contract that uses several libraries, each library must be explicitly specified, including the source code. Include the address of the library if it’s pre-deployed on the network or pass an empty network configuration if the library is linked to your contract at compile time. 
+
+Explore the [*example* project in the plugin Git repo](https://github.com/Tenderly/hardhat-tenderly/examples/verification)

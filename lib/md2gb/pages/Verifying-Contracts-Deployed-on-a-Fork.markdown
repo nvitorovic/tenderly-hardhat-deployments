@@ -1,10 +1,10 @@
 You can deploy Smart Contracts to Forks and send transactions to those contracts later on. To use Tenderly tools for the transactions simulated on a Fork, it’s necessary to verify the contracts. The process of verification on a Fork doesn’t differ much from verifying contracts on public networks.
 
-{.callout}
+{%callout}
 
 Keep in mind that contracts verified on a Fork are valid only within the context of the Fork, so there’s no concept of private or public verification on a Fork.
 
-{--callout}
+{%/callout}
 
 # Get a Fork JSON-RPC URL and Fork ID
 
@@ -12,7 +12,7 @@ Go to the Tenderly Dashboard and click “Forks” in the menu. Then, you can ei
 
    * Pick one of the existing Forks.
 
-   * (Create a brand-new Fork)[https://docs.tenderly.co/simulations-and-forks/how-to-create-a-fork]
+   * [Create a brand-new Fork](https://docs.tenderly.co/simulations-and-forks/how-to-create-a-fork)
 
 On the Fork page, you’ll find the JSON-RPC URL you can use to access the Fork. 
 
@@ -32,12 +32,12 @@ To achieve this, add the following `tenderly` property of `networks` to the Hard
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
   networks: {
-    ...
+    --snip--
 +  tenderly: {
-+     chainId: 1,
++     chainId: 5582,
 +     url: "https://rpc.tenderly.co/fork/2aeae177-a3e8-492f-9861-1c9aa8856235",
 +   },
-    ...
+    --snip--
   }
 };
 
@@ -46,23 +46,15 @@ export default config;
 
 Here’s an overview of the configuration parameters used in the example above: 
 
-| chainId | The chain this Fork is based on (1 stands for the Mainnet). Check out the complete list of chain IDs[e]. |
-
+| chainId | The [chain ID](https://consensys.net/docs/goquorum/en/latest/concepts/network-and-chain-id/) you associate to the Fork. Use an arbitrary number, different from usual network IDs. This is to ensure that you are not vulnerable to the transaction replay attack. |
 | --- | --- |
-
 | url | The JSON-RPC URL of your Fork. You can get it from the Fork page in the Dashboard. It follows the structure `https://rpc.tenderly.co/fork/{forkId}`, where forkId is a unique UUID identifier of the Tenderly Fork. |
 
 # Automatic & simple manual verification on a Tenderly Fork
 
 Both automatic and simple manual verification run automatically if the configuration is accurate. You don’t need to make any adjustments to the deployment code. 
 
-{.callout}
-
 **Note**: You need to pass `--network tenderly` so Hardhat uses your Fork as the network. 
-
-{--callout}
-
- 
 
 Use the following script to run this type of deployment and verification:
 
@@ -155,11 +147,11 @@ main().catch((error) => {
 });
 ```
 
-{.callout}
+{%callout}
 
-**Note**: In the `networks` segment of the configuration, we used computed property names, so the value of `FORK_ID` becomes a key in the `networks` object. .
+**Note**: In the `networks` segment of the configuration, we used computed property names, so the value of `FORK_ID` becomes a key in the `networks` object.
 
-{--callout}
+{%/callout}
 
 To execute this script, place the proper values for `TENDERLY_PROJECT`, `TENDERLY_USERNAME`, and `TENDERLY_FORK_ID`.
 
@@ -177,18 +169,13 @@ If you’re keeping these values in an externalized configuration using the `dot
 npx hardhat run scripts/greeter/manual-advanced-fork.ts --network tenderly
 ```
 
-Here’s a summary of the arguments of `verifyFork`:
+Here’s a summary of the arguments of `verifyForkAPI`:
 
-| | |
-
+| Parameter | Description|
 | --- | --- |
-
 | verificationRequest | A specification of  the config, root, and contracts |
-
 | username | Your username |
-
 | projectSlug | The slug of the project enclosing the Fork |
-
 | forkId | The Fork ID: a unique UUID identifier of the Tenderly Fork. You can find it in the JSON-RPC URL shown in the Dashboard (https://rpc.tenderly.co/fork/{forkId}). |
 
 ## Configuring `verificationRequest`
@@ -197,9 +184,9 @@ The `verificationRequest` consists of the following parts:
 
    * The **config** refers to the [Solidity compiler configuration](LINK The Solidity compiler *config* section)
 
-   * The **root** represents ???[f][g]. To skip it, set an empty string.
+   * The **root** ???[a][b][c][d]. Set to empty string (`root: ""`) so the contract is verified for the entire fork. To make contract valid starting with a particular simulated transaction in the fork, set it to the simulation ID (UUID assigned by Tenderly).
 
-   * The **contracts** entail a list of **contracts and libraries** you’re verifying. For more information, see (the Solidity compiler *contracts* section)[the–list-of-contracts].
+   * The **contracts** entail a list of **contracts and libraries** you’re verifying. For more details, see [the reference for *contracts* verification property LINK](the–list-of-contracts).
 
 The `contracts` list represents all the contracts you’re verifying and the libraries they’re using. The main difference is that the key of each entry in the `networks` property has to be the Fork ID, like on the line 9 in the list below:
 
@@ -217,5 +204,17 @@ The `contracts` list represents all the contracts you’re verifying and the lib
      },
    },
 },
-// --snip--
+// --snip–
 ```
+
+[a]@nenad@tenderly.co Find out exactly what this is
+
+_Assigned to Nenad Vitorovic_
+
+[b]@filip@tenderly.co little help pls?
+
+[c]"Root" is mentioned here as a route transaction in the fork. Do we want to continue on the current fork we would specify "" or fork the fork by specifying simulation id and continue the work on that specific fork
+
+But again, this part of the request is totally going to confuse the user so it would be great if we could omit it.
+
+[d]I added a brief brief description here without getting into details too much

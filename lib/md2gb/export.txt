@@ -2,7 +2,7 @@ Tenderly Contract Verification
 The process of verification in Tenderly takes the deployed bytecode and connects the operations with the instructions in the source code. This allows Tenderly to take the bytecode execution data and link it back to the source code, for example, when showing transaction execution in Debugger and using several other Tenderly features.
 # Methods of verification 
 There are three methods to verify a contract in Tenderly:
-* Using the Tenderly Dashboard (LINK)[https://docs.tenderly.co/monitoring/verifying-a-smart-contract]
+* [Using the Tenderly Dashboard](https://docs.tenderly.co/monitoring/verifying-a-smart-contract)
 * Using the Tenderly plugin within a Hardhat project
 # Modes of verification 
 Tenderly provides three modes of contract verification:
@@ -24,7 +24,7 @@ To use a specific Tenderly contract verification method, you need a Hardhat proj
 Start off with an [empty Hardhat project](https://hardhat.org/tutorial/creating-a-new-hardhat-project) and follow along with the guides. Alternatively, you can see a [complete example project on Git](LINK).
 
 
-Next, make sure to successfully set your Tenderly `access_key`. Follow a few simple [steps to set up your access key in Tenderly[a][b]](https://www.notion.so/How-to-setup-Tenderly-Access-Key-a074b14886224977987628809d571a19).
+Next, make sure to successfully set your Tenderly `access_key`. Follow a few simple [steps to set up your access key in Tenderly](https://www.notion.so/How-to-setup-Tenderly-Access-Key-a074b14886224977987628809d571a19).
 # Installing the Tenderly library
 Once you set up your environment, make sure to install the Tenderly plugin for Hardhat:
 ```bash
@@ -163,8 +163,8 @@ You can choose between two ways to manually verify a contract, including:
 
 <aside>
 ⚠️ **Turn off automatic verification**: Before deploying a contract using Hardhat, turn off the automatic contract verification in your `hardhat.config.ts` file by calling 
-```
-tsx tdly.setup({ automaticVerifications: false });
+```tsx 
+tdly.setup({ automaticVerifications: false });
 ```
 </aside>
 
@@ -346,12 +346,12 @@ Here are a few guidelines for specifying libraries:
 
 
 When verifying a contract that uses several libraries, each library must be explicitly specified, including the source code. Include the address of the library if it’s pre-deployed on the network or pass an empty network configuration if the library is linked to your contract at compile time. 
-Explore the (*example* project in the plugin Git repo)[https://github.com/Tenderly/hardhat-tenderly/examples/verification]
+Explore the [*example* project in the plugin Git repo](https://github.com/Tenderly/hardhat-tenderly/examples/verification)
 ________________
 Private Mode of Automatic & Manual Verification
 By default, the Tenderly Hardhat plugin performs public verification of Smart Contracts when using either automatic or manual approaches. When running private verification, the Smart Contract is verified within the project you specify. 
 # How to verify Smart Contracts privately
-To enable private verification, set the `privateVerification` flag and (specify your exact username and the project slug LINK)[] on Tenderly. 
+To enable private verification, set the `privateVerification` flag and [specify your exact username and the project slug LINK]() on Tenderly. 
 Next, add the following `tenderly` configuration property to your `hardhat.config.ts` and paste appropriate values instead of placeholders. There’s no need to change anything in your verification code.
 ```diff
 // File: hardhat.config.ts
@@ -377,10 +377,10 @@ The `tenderly` section of the Hardhat user configuration consists of:
 
 
 | Paramater | Description |
-| --- | --- | --- |
+| --- | --- | 
 | username | Your username |
 | project | Your project slug |
-| privateVerification | true| false. Default value: false. |
+| privateVerification | `true` \| `false`. Default value: false. |
 | deploymentsDir | The path to a directory where the Tenderly Hardhat plugin stores the information about deployments. Optional. |
 | forkNetwork | When running with `--network tenderly` and `networks.tenderly` is not specified in hardhat user config, the plugin creates a Fork in Tenderly based on the given network ID, and connects Ethers to that Fork. Optional. |
 
@@ -428,7 +428,7 @@ Keep in mind that contracts verified on a Fork are valid only within the context
 # Get a Fork JSON-RPC URL and Fork ID
 Go to the Tenderly Dashboard and click “Forks” in the menu. Then, you can either:
    * Pick one of the existing Forks.
-   * (Create a brand-new Fork)[https://docs.tenderly.co/simulations-and-forks/how-to-create-a-fork]
+   * [Create a brand-new Fork](https://docs.tenderly.co/simulations-and-forks/how-to-create-a-fork)
 On the Fork page, you’ll find the JSON-RPC URL you can use to access the Fork. 
   
 
@@ -457,7 +457,7 @@ export default config;
 
 
 Here’s an overview of the configuration parameters used in the example above: 
-| chainId | The (chain ID)[https://consensys.net/docs/goquorum/en/latest/concepts/network-and-chain-id/] you associate to the Fork. Use an arbitrary number, different from usual network IDs. |
+| chainId | The [chain ID](https://consensys.net/docs/goquorum/en/latest/concepts/network-and-chain-id/) you associate to the Fork. Use an arbitrary number, different from usual network IDs. This is to ensure that you are not vulnerable to the transaction replay attack. |
 | --- | --- |
 | url | The JSON-RPC URL of your Fork. You can get it from the Fork page in the Dashboard. It follows the structure `https://rpc.tenderly.co/fork/{forkId}`, where forkId is a unique UUID identifier of the Tenderly Fork. |
 # Automatic & simple manual verification on a Tenderly Fork
@@ -585,8 +585,8 @@ Here’s a summary of the arguments of `verifyForkAPI`:
 ## Configuring `verificationRequest`
 The `verificationRequest` consists of the following parts:
    * The **config** refers to the [Solidity compiler configuration](LINK The Solidity compiler *config* section)
-   * The **root** ???[c][d][e]. Set to empty string (`root: ""`) so the contract is verified for the entire fork. To make contract valid starting with a particular simulated transaction in the fork, set it to the simulation ID (UUID assigned by Tenderly).
-   * The **contracts** entail a list of **contracts and libraries** you’re verifying. For more information, see (the Solidity compiler *contracts* section)[the–list-of-contracts].
+   * The **root** ???[a][b][c][d]. Set to empty string (`root: ""`) so the contract is verified for the entire fork. To make contract valid starting with a particular simulated transaction in the fork, set it to the simulation ID (UUID assigned by Tenderly).
+   * The **contracts** entail a list of **contracts and libraries** you’re verifying. For more details, see [the reference for *contracts* verification property LINK](the–list-of-contracts).
 The `contracts` list represents all the contracts you’re verifying and the libraries they’re using. The main difference is that the key of each entry in the `networks` property has to be the Fork ID, like on the line 9 in the list below:
 ```ts
 // --snip--
@@ -606,12 +606,11 @@ The `contracts` list represents all the contracts you’re verifying and the lib
 ```
 
 
-[a]Setup Access Key -> place in docs?
-[b]We have https://docs.tenderly.co/simulations-and-forks/simulation-api/configuration-of-api-access, perhaps use that one (checking with Stefan if we can extract it)
-[c]@nenad@tenderly.co Find out exactly what this is
+[a]@nenad@tenderly.co Find out exactly what this is
 _Assigned to Nenad Vitorovic_
-[d]@filip@tenderly.co little help pls?
-[e]"Root" is mentioned here as a route transaction in the fork. Do we want to continue on the current fork we would specify "" or fork the fork by specifying simulation id and continue the work on that specific fork
+[b]@filip@tenderly.co little help pls?
+[c]"Root" is mentioned here as a route transaction in the fork. Do we want to continue on the current fork we would specify "" or fork the fork by specifying simulation id and continue the work on that specific fork
 
 
 But again, this part of the request is totally going to confuse the user so it would be great if we could omit it.
+[d]I added a brief brief description here without getting into details too much

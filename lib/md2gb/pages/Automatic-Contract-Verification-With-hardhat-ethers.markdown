@@ -3,7 +3,7 @@ Automatic contract verification is a part of Tenderly’s Hardhat plugin. This m
 ```tsx
 import * as tdly from "@tenderly/hardhat-tenderly";
 tdly.setup({ automaticVerifications: true });
-// same as
+// automaticVerifications defaults to `true`, same as:
 // tdly.setup();
 ```
 
@@ -12,7 +12,7 @@ The code example below deploys the `Greeter` contract and verifies it in Tenderl
 ```tsx
 // File: scripts/greeter/automatic.ts
 import { ethers } from "hardhat";
-//HELLOOOOOUUUU
+
 async function main() {
   const Greeter = await ethers.getContractFactory("Greeter");
   const greeter = await Greeter.deploy("Hello, Hardhat!");
@@ -48,7 +48,7 @@ In the Tenderly Dashboard, you should see something similar to the following. Yo
 
 # How automatic contract verification works 
 
-When you call Ethers’ `await greeter.deployed()`, the plugin will automatically detect the contract, upload the source code, and verify it against the contract deployed on the selected network. Automatic verification does all the work you’d have to do if you [used advanced manual verification LINK](LINK).
+When you call Ethers’ `await greeter.deployed()`, the plugin will automatically detect the contract, upload the source code, and verify it against the contract deployed on the selected network. Automatic verification is a no-code solution, which is not the case with other verification methods.
 
 # When is automatic verification applicable?
 

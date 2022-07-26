@@ -2,7 +2,7 @@ By default, the Tenderly Hardhat plugin performs public verification of Smart Co
 
 # How to verify Smart Contracts privately
 
-To enable private verification, set the `privateVerification` flag and (specify your exact username and the project slug LINK)[] on Tenderly. 
+To enable private verification, set the `privateVerification` flag and [specify your exact username and the project slug LINK]() on Tenderly. 
 
 Next, add the following `tenderly` configuration property to your `hardhat.config.ts` and paste appropriate values instead of placeholders. There’s no need to change anything in your verification code.
 
@@ -12,7 +12,7 @@ Next, add the following `tenderly` configuration property to your `hardhat.confi
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
   networks: {
-    ...
+    --snip—-
   },
 + tenderly: {
 +   project: "my-project-slug",
@@ -26,17 +26,13 @@ export default config;
 
 The `tenderly` section of the Hardhat user configuration consists of:
 
+| Paramater | Description |
+| --- | --- | 
 | username | Your username |
-
-| --- | --- |
-
 | project | Your project slug |
-
-| privateVerification | true| false. Default value: false. |
-
-| deploymentsDir[c] | The path to a directory where the Tenderly Hardhat plugin stores the information about deployments. Optional. |
-
-| forkNetwork[d] | The network ID to fork. If specified, the plugin will create a Fork on Tenderly based on the given network ID and connect Ethers to it. Optional. |
+| privateVerification | `true` \| `false`. Default value: false. |
+| deploymentsDir | The path to a directory where the Tenderly Hardhat plugin stores the information about deployments. Optional. |
+| forkNetwork | When running with `--network tenderly` and `networks.tenderly` is not specified in hardhat user config, the plugin creates a Fork in Tenderly based on the given network ID, and connects Ethers to that Fork. Optional. |
 
 To try it out, run any of the deployment scripts:
 
@@ -111,8 +107,7 @@ export default config;
 
 To run advanced manual verification, execute the following command in your terminal:
 
-```bash
-TENDERLY_PRIVATE_VERIFICATION=true \
+```TENDERLY_PRIVATE_VERIFICATION=true \
 TENDERLY_PROJECT=myProject \
 TENDERLY_USERNAME=myUsername \
 npx hardhat run scripts/greeter/automatic.ts --network ropsten

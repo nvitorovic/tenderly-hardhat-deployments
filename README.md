@@ -5,7 +5,19 @@ This repo demonstrates deployment and verification of Smart Contracts in Tenderl
 - **Tenderly Hardhat plugin** to perform verification using Ethers in several ways (automatic and manual). There are 18 different possibilities you can play around with.
 - **API access** to perform verification using the API (TBD)
 
-<!-- Add URL to the article -->
+To learn more explore [Tenderly documentation](https://docs.tenderly.co/monitoring/smart-contract-verification).
+
+# The examples
+
+There are two example contracts (`Greeter.sol` and `Mathematitian.sol`). Their build scripts are located in:
+
+- `scripts/greeter/`, deploying the classical Greeter.sol contract.
+- `scripts/maths`, deploying `Mathematitian.sol` and `Maths.sol` - a library used by the contract.
+
+From these examples, you can learn:
+
+- How to verify a Smart Contract referencing a non-deployed library: Greeter uses `hardhat/console.log`.
+- How to verify a Smart Contract referencing an library deployed on-chain: Mathematitian uses deployed `Maths.sol` library.
 
 # Environment setup
 
@@ -33,18 +45,6 @@ Try running automatic verification:
 TENDERLY_AUTOMATIC_VERIFICATION=true \
 hardhat run scripts/greeter/automatic.ts --network ropsten
 ```
-
-# The examples
-
-There are two example contracts (`Greeter.sol` and `Mathematitian.sol`). Their build scripts are located in:
-
-- `scripts/greeter/`, deploying the classical Greeter.sol contract.
-- `scripts/maths`, deploying `Mathematitian.sol` and `Maths.sol` - a library used by the contract.
-
-From these examples, you can learn:
-
-- How to verify a Smart Contract referencing a non-deployed library: Greeter uses `hardhat/console.log`.
-- How to verify a Smart Contract referencing an on-chain deployed library: Mathematitian uses deployed `Maths.sol` library.
 
 ## Biuilding and Verifying Greeter and environment variables
 

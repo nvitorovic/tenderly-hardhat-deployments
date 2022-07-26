@@ -16,7 +16,7 @@ To use a specific Tenderly contract verification method, you need a Hardhat proj
 
 Start off with an [empty Hardhat project](https://hardhat.org/tutorial/creating-a-new-hardhat-project) and follow along with the guides. Alternatively, you can see a [complete example project on Git](LINK).
 
-Next, make sure to successfully set your Tenderly `access_key`. Follow a few simple [steps to set up your access key in Tenderly[a][b]](https://www.notion.so/How-to-setup-Tenderly-Access-Key-a074b14886224977987628809d571a19).
+Next, make sure to successfully set your Tenderly `access_key`. Follow a few simple [steps to set up your access key in Tenderly](https://www.notion.so/How-to-setup-Tenderly-Access-Key-a074b14886224977987628809d571a19).
 
 # Installing the Tenderly library
 
