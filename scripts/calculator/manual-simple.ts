@@ -1,9 +1,9 @@
 // File: scripts/maths/manual-simple.ts
 import { tenderly } from "hardhat";
-import { deployMathematitian, deployMaths } from "./maths-deployment-ethers";
+import { deployCalculator, deployMaths } from "./maths-deployment-ethers";
 
 async function main() {
-  // 📐 Mathematitian (uses maths)
+  // 📐 Calculator (uses maths)
   const mathsAddress = await deployMaths();
 
   console.log("📐[ethers] Verifying Maths in Tenderly");
@@ -13,14 +13,14 @@ async function main() {
     address: mathsAddress,
   });
 
-  // 👩‍🏫 Mathematitian (uses maths)
-  const mathematitianAddress = await deployMathematitian(mathsAddress);
+  // 🧮 Calculator (uses maths)
+  const calculatorAddress = await deployCalculator(mathsAddress);
 
-  console.log("👩‍🏫[tenderly] Verifying Mathematitian in Tenderly");
+  console.log("🧮[tenderly] Verifying Calculator in Tenderly");
 
   tenderly.verify({
-    name: "Mathematitian",
-    address: mathematitianAddress,
+    name: "Calculator",
+    address: calculatorAddress,
     libraries: {
       Maths: mathsAddress,
     },

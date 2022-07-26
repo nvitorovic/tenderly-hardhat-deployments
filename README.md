@@ -9,15 +9,15 @@ To learn more explore [Tenderly documentation](https://docs.tenderly.co/monitori
 
 # The examples
 
-There are two example contracts (`Greeter.sol` and `Mathematitian.sol`). Their build scripts are located in:
+There are two example contracts (`Greeter.sol` and `Calculator.sol`). Their build scripts are located in:
 
 - `scripts/greeter/`, deploying the classical Greeter.sol contract.
-- `scripts/maths`, deploying `Mathematitian.sol` and `Maths.sol` - a library used by the contract.
+- `scripts/calculator`, deploying `Calculator.sol` and `Maths.sol` - a library used by the contract.
 
 From these examples, you can learn:
 
-- How to verify a Smart Contract referencing a non-deployed library: Greeter uses `hardhat/console.log`.
-- How to verify a Smart Contract referencing an library deployed on-chain: Mathematitian uses deployed `Maths.sol` library.
+- How to verify a Smart Contract referencing a non-deployed library: Greeter uses **non-deployed** `hardhat/console.log`.
+- How to verify a Smart Contract referencing an library deployed on-chain: Calculator uses **deployed** `Maths.sol` library.
 
 # Environment setup
 
@@ -48,7 +48,7 @@ hardhat run scripts/greeter/automatic.ts --network ropsten
 
 ## Biuilding and Verifying Greeter and environment variables
 
-The `/scripts/greeter` contains 4 deployment scripts that illustrate the 3 methods of verification (automatic, manual simple, manual advanced) and verification of a contract deployed on a Tenderly Fork. The `scripts/maths` example has the same structure.
+The `/scripts/greeter` contains 4 deployment scripts that illustrate the 3 methods of verification (automatic, manual simple, manual advanced) and verification of a contract deployed on a Tenderly Fork. The `scripts/calculator` example has the same structure.
 
 | Verification method    | Script                             |
 | ---------------------- | ---------------------------------- |
@@ -95,7 +95,7 @@ You can choose
 
 | category  | Meaning                                | options                                         |
 | --------- | -------------------------------------- | ----------------------------------------------- |
-| `example` | Smart contract to verify               | `greeter`, `maths`                              |
+| `example` | Smart contract to verify               | `greeter`, `calculator`                         |
 | `mode`    | In one of 3 modes of verification      | `public`, `private`, `fork`                     |
 | `method`  | Using one of 3 methods of verification | `automatic`, `manual-simple`, `manual-advanced` |
 

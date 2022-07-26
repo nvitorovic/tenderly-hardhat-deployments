@@ -41,7 +41,7 @@ const runAll = modes.flatMap((mode) => {
   return examples.flatMap((example) => {
     return types.map((type) => {
       return {
-        emoji: example === "maths" ? "👩‍🏫" : "✋",
+        emoji: example === "maths" ? "🧮" : "✋",
         command: `npm run ${npmRunCommand(mode, example, type)}`,
         script: npmRunCommand(mode, example, type),
         example,

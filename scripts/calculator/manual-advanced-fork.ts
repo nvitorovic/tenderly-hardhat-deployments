@@ -1,7 +1,7 @@
 // File: scripts/maths/manual-advanced.ts
 import { readFileSync } from "fs";
 import { tenderly } from "hardhat";
-import { deployMathematitian, deployMaths } from "./maths-deployment-ethers";
+import { deployCalculator, deployMaths } from "./maths-deployment-ethers";
 
 const FORK_ID = process.env.TENDERLY_FORK_ID || "";
 
@@ -13,8 +13,8 @@ export async function main() {
     address: mathsAddress,
   });
 
-  // 👩‍🏫 Mathematitian (uses maths)
-  const mathematitianAddress = await deployMathematitian(mathsAddress);
+  // 🧮 Calculator (uses maths)
+  const calculatorAddress = await deployCalculator(mathsAddress);
 
   await tenderly.verifyForkAPI(
     {
@@ -25,19 +25,16 @@ export async function main() {
       },
       contracts: [
         {
-          contractName: "Mathematitian",
-          source: readFileSync(
-            "contracts/Mathematitian.sol",
-            "utf-8"
-          ).toString(),
-          sourcePath: "Mathematitian.sol",
+          contractName: "Calculator",
+          source: readFileSync("contracts/Calculator.sol", "utf-8").toString(),
+          sourcePath: "Calculator.sol",
           compiler: {
             version: "0.8.9",
           },
           networks: {
             // important: key is the Fork ID (UUID like string)
             [FORK_ID]: {
-              address: mathematitianAddress,
+              address: calculatorAddress,
               // Link the dependency to the deployed maths contract
               links: {
                 Maths: mathsAddress,
